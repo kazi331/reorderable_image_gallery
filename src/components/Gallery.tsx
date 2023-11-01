@@ -5,6 +5,7 @@ import Bar from './Bar';
 import GridItem from './GridItem';
 
 
+
 // import data from '../data.json'
 
 export type itemType = { id: number, image: string }
