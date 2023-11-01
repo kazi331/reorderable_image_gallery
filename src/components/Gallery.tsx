@@ -1,13 +1,18 @@
 
 import { useEffect, useState } from 'react';
 import styles from '../styles/gallery.module.css';
+import Bar from './Bar';
+import GridItem from './GridItem';
 
 
 // import data from '../data.json'
 
 export type itemType = { id: number, image: string }
 
+export type selectedType = { id: number, image: string }[]
+
 const Gallery = () => {
+    const [selected, setSelected] = useState<selectedType>([])
     const [data, setData] = useState<itemType[]>([] as itemType[]);
     // Simulate data fetching from the server
     const fetchData = async () => {
@@ -20,12 +25,16 @@ const Gallery = () => {
         fetchData();
     }, []);
     return (
-        <div>
+        <div className={styles.wrapper}>
 
+            {/* Bar  */}
+            <Bar selected={selected} />
+
+            {/* main container */}
             <div className={styles.container}>
                 {data.map(item => <GridItem key={item.id} item={item} />)}
                 <div className={styles.addItem}>
-                    <img src="public/icons/thumbnail.svg" alt="image thumbnail" />
+                    <img src="/icons/thumbnail.svg" alt="image thumbnail" />
                     <p>Add Images</p>
                 </div>
             </div>
@@ -34,19 +43,5 @@ const Gallery = () => {
 }
 
 
-const GridItem = ({ item }: { item: itemType }) => {
-    return (
-        <div className={styles.itemWrapper}>
-            <div className={styles.item}>
-                <img src={item.image} alt="Image Item" />
-            </div>
-
-            <label htmlFor={item.id.toString()} className={styles.overlay}>
-                <input type="checkbox" id={item.id.toString()} />
-            </label>
-
-        </div>
-    )
-}
 
 export default Gallery

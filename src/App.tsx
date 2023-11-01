@@ -1,8 +1,4 @@
 import Gallery from "./components/Gallery"
 import './styles/App.css'
-function App() {
-
-  return <Gallery />
-}
-
+const App = () => <Gallery />
 export default App
