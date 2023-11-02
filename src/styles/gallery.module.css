@@ -39,16 +39,17 @@
 .title {
   color: rgb(48, 48, 48);
 }
+
 /* Grid container  */
 .container {
   /* gridbox to maintain layout */
   display: grid;
-  grid-template-rows: repeat(3, 190px);
-  grid-template-columns: repeat(auto-fit, minmax(190px, 190px));
+  grid-template-rows: repeat(3, 14rem);
+  grid-template-columns: repeat(auto-fit, minmax(14rem, 14rem));
   gap: 20px;
 
-  grid-auto-rows: 190px;
-  grid-auto-columns: 190px;
+  grid-auto-rows: 14rem;
+  grid-auto-columns: 14rem;
 }
 
 .itemWrapper:first-child {
@@ -63,9 +64,6 @@
   border-radius: 10px;
   overflow: hidden;
   position: relative;
-}
-.item {
-  /* z-index: 1; */
 }
 
 .item img {
