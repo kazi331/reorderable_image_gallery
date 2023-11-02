@@ -2,6 +2,8 @@ import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import styles from '../styles/gallery.module.css';
 import { itemType } from './Gallery';
+
+
 const GridItem = ({ item }: { item: itemType }) => {
     const { attributes, listeners, setNodeRef, transform, transition } = useSortable({ id: item.id })
     const style = {
@@ -9,13 +11,7 @@ const GridItem = ({ item }: { item: itemType }) => {
         transition
     }
     return (
-        <div {...attributes}
-            {...listeners}
-            ref={setNodeRef}
-            style={style}
-            className={styles.itemWrapper}
-
-        >
+        <div {...attributes} {...listeners} ref={setNodeRef} style={style} className={styles.itemWrapper}>
             <div className={styles.item}>
                 <img src={item.image} alt="Image title goes here..." />
             </div>

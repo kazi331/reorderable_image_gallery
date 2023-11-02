@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 
 import { DndContext, DragMoveEvent, closestCenter } from '@dnd-kit/core';
 import { SortableContext, arrayMove, rectSwappingStrategy } from '@dnd-kit/sortable';
@@ -12,10 +13,8 @@ import GridItem from './GridItem';
 
 export type itemType = { id: number, image: string }
 
-export type selectedType = { id: number, image: string }[]
-
 const Gallery = () => {
-    const [selected, setSelected] = useState<selectedType>([])
+    const [selected, setSelected] = useState<itemType[]>([])
     const [data, setData] = useState<itemType[]>([] as itemType[]);
     const [activeId, setActiveId] = useState<number | null>(null)
 
@@ -30,13 +29,14 @@ const Gallery = () => {
         fetchData();
     }, []);
 
-    const handleDragEnd = (event: DragMoveEvent) => {
-        const { active, over } = event;
-        const oldIndex = data.findIndex(item => item.id === active.id)
-        const newIndex = data.findIndex(item => item.id === over?.id)
-        const newOrder = arrayMove(data, oldIndex, newIndex);
-        setData(newOrder); // local update
-
+    const handleDragEnd = ({ active, over }: DragMoveEvent) => {
+        if (active.id !== over?.id) {
+            setData(items => {
+                const oldIndex = items.findIndex(item => item.id === active.id)
+                const newIndex = items.findIndex(item => item.id === over?.id)
+                return arrayMove(items, oldIndex, newIndex);
+            })
+        }
     }
 
     const handleDragStart = (event: DragMoveEvent) => {
