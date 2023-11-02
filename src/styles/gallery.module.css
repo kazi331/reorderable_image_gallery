@@ -44,12 +44,12 @@
 .container {
   /* gridbox to maintain layout */
   display: grid;
-  grid-template-rows: repeat(3, 14rem);
-  grid-template-columns: repeat(auto-fit, minmax(14rem, 14rem));
+  grid-template-rows: repeat(3, 10rem);
+  grid-template-columns: repeat(auto-fit, minmax(10rem, 10rem));
   gap: 20px;
 
-  grid-auto-rows: 14rem;
-  grid-auto-columns: 14rem;
+  grid-auto-rows: 10rem;
+  grid-auto-columns: 10rem;
 }
 
 .itemWrapper:first-child {
@@ -59,8 +59,8 @@
 /* ITEM WRAPPER  */
 .itemWrapper {
   position: relative;
-  border: 1px solid rgb(218, 218, 218);
-  box-shadow: 0px 0px 14px rgb(233, 233, 233);
+  /* border: 1px solid rgb(218, 218, 218); */
+  box-shadow: 0px 0px 3px 1px rgb(230, 230, 230);
   border-radius: 10px;
   overflow: hidden;
   position: relative;

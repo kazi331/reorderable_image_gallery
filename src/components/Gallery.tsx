@@ -14,24 +14,25 @@ import GridItem from './GridItem';
 export type itemType = { id: number, image: string }
 
 const Gallery = () => {
-    const [selected, setSelected] = useState<itemType[]>([])
-    const [data, setData] = useState<itemType[]>([] as itemType[]);
-    const [activeId, setActiveId] = useState<number | null>(null)
+    const [images, setImages] = useState<itemType[]>([] as itemType[]);
+    const [selected, setSelected] = useState<number[]>([])
+    // const [activeId, setActiveId] = useState<number | null>(null)
 
-    // Simulate data fetching from the server
+    // Simulate images fetching from the server
     const fetchData = async () => {
         const res = await fetch('data.json');
         const data = await res.json();
-        setData(data)
+        setImages(data)
     }
-    // console.log(data)
+    // console.log(images)
     useEffect(() => {
         fetchData();
     }, []);
 
+
     const handleDragEnd = ({ active, over }: DragMoveEvent) => {
         if (active.id !== over?.id) {
-            setData(items => {
+            setImages(items => {
                 const oldIndex = items.findIndex(item => item.id === active.id)
                 const newIndex = items.findIndex(item => item.id === over?.id)
                 return arrayMove(items, oldIndex, newIndex);
@@ -39,25 +40,31 @@ const Gallery = () => {
         }
     }
 
-    const handleDragStart = (event: DragMoveEvent) => {
-        setActiveId(Number(event.active.id));
-    }
+    // const handleDragStart = (event: DragMoveEvent) => {
+    //     setActiveId(Number(event.active.id));
+    // }
 
+    // handle selected items
+    const handleSelection = (id: number) => {
+        // insert new id if it is not already exist
+        setSelected(prev => prev.includes(id) ? selected.filter(item => item !== id) : [...prev, id])
+    }
+    console.log(selected)
     return (
         <DndContext
             collisionDetection={closestCenter}
             onDragEnd={handleDragEnd}
-            onDragStart={handleDragStart}
+        // onDragStart={handleDragStart}
 
         >
-            <SortableContext items={data} strategy={rectSwappingStrategy} >
+            <SortableContext items={images} strategy={rectSwappingStrategy} >
                 <div className={styles.wrapper}>
                     {/* Bar  */}
                     <Bar selected={selected} />
 
                     {/* main container */}
                     <div className={styles.container}>
-                        {data.map(item => <GridItem key={item.id} item={item} />)}
+                        {images.map(item => <GridItem key={item.id} item={item} handleSelection={handleSelection} />)}
 
                         {/* ADD IMAGE BLOCK */}
                         <div className={styles.addItem}>
