@@ -65,9 +65,6 @@
   overflow: hidden;
   position: relative;
 }
-.item {
-  /* z-index: 1; */
-}
 
 .item img {
   width: 100%;

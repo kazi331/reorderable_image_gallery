@@ -9,7 +9,13 @@ const GridItem = ({ item }: { item: itemType }) => {
         transition
     }
     return (
-        <div {...attributes} {...listeners} ref={setNodeRef} style={style} className={styles.itemWrapper}>
+        <div {...attributes}
+            {...listeners}
+            ref={setNodeRef}
+            style={style}
+            className={styles.itemWrapper}
+
+        >
             <div className={styles.item}>
                 <img src={item.image} alt="Image title goes here..." />
             </div>

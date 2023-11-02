@@ -1,6 +1,6 @@
 
-import { DndContext, DragMoveEvent, MeasuringStrategy, closestCenter } from '@dnd-kit/core';
-import { SortableContext, arrayMove, rectSortingStrategy, rectSwappingStrategy, verticalListSortingStrategy } from '@dnd-kit/sortable';
+import { DndContext, DragMoveEvent, closestCenter } from '@dnd-kit/core';
+import { SortableContext, arrayMove, rectSwappingStrategy } from '@dnd-kit/sortable';
 import { useEffect, useState } from 'react';
 import styles from '../styles/gallery.module.css';
 import Bar from './Bar';
@@ -17,6 +17,7 @@ export type selectedType = { id: number, image: string }[]
 const Gallery = () => {
     const [selected, setSelected] = useState<selectedType>([])
     const [data, setData] = useState<itemType[]>([] as itemType[]);
+    const [activeId, setActiveId] = useState<number | null>(null)
 
     // Simulate data fetching from the server
     const fetchData = async () => {
@@ -37,8 +38,18 @@ const Gallery = () => {
         setData(newOrder); // local update
 
     }
+
+    const handleDragStart = (event: DragMoveEvent) => {
+        setActiveId(Number(event.active.id));
+    }
+
     return (
-        <DndContext collisionDetection={closestCenter} onDragEnd={handleDragEnd} >
+        <DndContext
+            collisionDetection={closestCenter}
+            onDragEnd={handleDragEnd}
+            onDragStart={handleDragStart}
+
+        >
             <SortableContext items={data} strategy={rectSwappingStrategy} >
                 <div className={styles.wrapper}>
                     {/* Bar  */}
@@ -47,13 +58,21 @@ const Gallery = () => {
                     {/* main container */}
                     <div className={styles.container}>
                         {data.map(item => <GridItem key={item.id} item={item} />)}
+
+                        {/* ADD IMAGE BLOCK */}
                         <div className={styles.addItem}>
                             <img src="/icons/thumbnail.svg" alt="image thumbnail" />
                             <p>Add Images</p>
                         </div>
                     </div>
+
                 </div>
             </SortableContext>
+            {/* <DragOverlay>
+                {activeId ?
+                    <GridItem item={data[activeId - 1]} />
+                    : null}
+            </DragOverlay> */}
         </DndContext>
     )
 }
