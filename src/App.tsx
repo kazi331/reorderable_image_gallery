@@ -1,4 +1,4 @@
-import Gallery from "./components/Gallery"
+import BeautifulDnd from "./components/beautiful/BeautifulDnd"
 import './styles/App.css'
-const App = () => <Gallery />
+const App = () => <BeautifulDnd />
 export default App
