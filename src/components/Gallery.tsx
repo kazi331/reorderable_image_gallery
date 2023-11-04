@@ -14,9 +14,8 @@ import GridItem from './GridItem';
 export type itemType = { id: number, image: string }
 
 const Gallery = () => {
-    const [selected, setSelected] = useState<itemType[]>([])
+    const [selected] = useState<itemType[]>([])
     const [data, setData] = useState<itemType[]>([] as itemType[]);
-    const [activeId, setActiveId] = useState<number | null>(null)
 
     // Simulate data fetching from the server
     const fetchData = async () => {
@@ -39,15 +38,11 @@ const Gallery = () => {
         }
     }
 
-    const handleDragStart = (event: DragMoveEvent) => {
-        setActiveId(Number(event.active.id));
-    }
-
     return (
         <DndContext
             collisionDetection={closestCenter}
             onDragEnd={handleDragEnd}
-            onDragStart={handleDragStart}
+        // onDragStart={handleDragStart}
 
         >
             <SortableContext items={data} strategy={rectSwappingStrategy} >

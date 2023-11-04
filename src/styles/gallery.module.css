@@ -64,6 +64,7 @@
   border-radius: 10px;
   overflow: hidden;
   position: relative;
+  background-color: white;
 }
 
 .item img {
@@ -92,6 +93,7 @@
     rgba(0, 0, 0, 0.3)
   ); */
   z-index: -1;
+  /* cursor: grab; */
 }
 
 .itemWrapper input {
