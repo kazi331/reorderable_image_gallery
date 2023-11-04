@@ -117,6 +117,7 @@
 .itemWrapper input:checked {
   z-index: 2;
 }
+
 /* ADD IMAGE ITEM */
 .addItem {
   border: 1px dashed darkgray;

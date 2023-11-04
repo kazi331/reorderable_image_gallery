@@ -1,10 +1,5 @@
 import Gallery from "./components/Gallery"
-import BeautifulDnd from "./components/beautiful/BeautifulDnd"
-import Languages from "./components/dnd/Languages"
 import './styles/App.css'
-const App = () => <>
-    <Gallery />
-    <Languages />
-    <BeautifulDnd />
-</>
+const App = () => <Gallery />
+
 export default App

@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
-import { DndContext, DragMoveEvent, DragOverlay, closestCenter } from '@dnd-kit/core';
+import { DndContext, DragMoveEvent, MouseSensor, closestCenter, useSensor, useSensors } from '@dnd-kit/core';
 import { SortableContext, arrayMove, rectSwappingStrategy } from '@dnd-kit/sortable';
 import { useEffect, useState } from 'react';
 import styles from '../styles/gallery.module.css';
@@ -16,19 +16,28 @@ export type itemType = { id: number, image: string }
 const Gallery = () => {
     const [selected, setSelected] = useState<number[]>([])
     const [data, setData] = useState<itemType[]>([] as itemType[]);
-    const [activeId, setActiveId] = useState<number | null>(null);
+    // const [activeId, setActiveId] = useState<number | null>(null);
+    // withou sensors, we cannot invoke our custom events on single items
+    const mouseSensor = useSensor(MouseSensor, {
+        activationConstraint: {
+            distance: 10, // Enable sort function when dragging 10px   💡 here!!!
+        },
+    })
+    const sensors = useSensors(mouseSensor);
+
     // Simulate data fetching from the server
     const fetchData = async () => {
         const res = await fetch('data.json');
         const data = await res.json();
         setData(data)
     }
-    // console.log(data)
+
     useEffect(() => {
         fetchData();
     }, []);
+
     const handleSelection = (id: number) => {
-        // insert new id if it is not already exist
+        // insert new id if it is not already exist in the array
         setSelected(prev => prev.includes(id) ? selected.filter(item => item !== id) : [...prev, id])
     }
     const handleDragEnd = ({ active, over }: DragMoveEvent) => {
@@ -39,23 +48,26 @@ const Gallery = () => {
                 return arrayMove(items, oldIndex, newIndex);
             })
         }
+        // setActiveId(null);
     }
 
     return (
         <DndContext
+            sensors={sensors}
             collisionDetection={closestCenter}
             onDragEnd={handleDragEnd}
-            onDragStart={(e: DragMoveEvent) => { setActiveId(Number(e.active.id)) }}
+        // onDragStart={(e: DragMoveEvent) => { setActiveId(Number(e.active.id)) }}
+        // onDragCancel={() => { setActiveId(null) }}
 
         >
             <SortableContext items={data} strategy={rectSwappingStrategy} >
                 <div className={styles.wrapper}>
-                    {/* Bar  */}
                     <Bar selected={selected} />
-
                     {/* main container */}
                     <div className={styles.container}>
-                        {data.map(item => <GridItem key={item.id} item={item} handleSelection={handleSelection} />)}
+                        {data.map(item => (
+                            <GridItem key={item.id} item={item} handleSelection={handleSelection} />
+                        ))}
 
                         {/* ADD IMAGE BLOCK */}
                         <div className={styles.addItem}>
@@ -63,14 +75,13 @@ const Gallery = () => {
                             <p>Add Images</p>
                         </div>
                     </div>
-
                 </div>
             </SortableContext>
-            <DragOverlay>
+            {/* <DragOverlay>
                 {activeId ?
-                    <GridItem item={data[activeId - 1]} handleSelection={handleSelection} />
+                    <GridItem item={data[activeId]} handleSelection={handleSelection} />
                     : null}
-            </DragOverlay>
+            </DragOverlay> */}
         </DndContext>
     )
 }
