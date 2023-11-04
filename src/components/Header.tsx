@@ -1,6 +1,7 @@
 import styles from '../styles/gallery.module.css';
 
-const Bar = ({ selected }: { selected: number[] }) => {
+const Header = ({ selected, handleDelete, }: { selected: number[], handleDelete: () => void }) => {
+
     return (
         <div className={styles.bar}>
             {
@@ -8,9 +9,9 @@ const Bar = ({ selected }: { selected: number[] }) => {
                     <div className={styles.bar_container}>
                         <div className={styles.bar_selected}>
                             <input type="checkbox" />
-                            <p>1 Files Selected</p>
+                            <p>{selected.length} {selected.length > 1 ? "Files" : "File"} Selected</p>
                         </div>
-                        <button>Delete Items</button>
+                        <button onClick={handleDelete}>Delete {selected.length > 1 ? "Items" : "Item"}</button>
                     </div> :
                     <h3 className={styles.title}>Gallery</h3>
             }
@@ -18,4 +19,4 @@ const Bar = ({ selected }: { selected: number[] }) => {
     )
 }
 
-export default Bar
+export default Header

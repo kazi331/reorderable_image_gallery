@@ -1,23 +1,22 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-
 import { DndContext, DragMoveEvent, MouseSensor, closestCenter, useSensor, useSensors } from '@dnd-kit/core';
 import { SortableContext, arrayMove, rectSwappingStrategy } from '@dnd-kit/sortable';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import styles from '../styles/gallery.module.css';
-import Bar from './Bar';
 import GridItem from './GridItem';
 
+import images from '../data/data.json';
+import { itemType } from '../utils/types';
+import AddItem from './AddItem';
+import Empty from './Empty';
+import Header from './Header';
 
 
-// import data from '../data.json'
-
-export type itemType = { id: number, image: string }
 
 const Gallery = () => {
     const [selected, setSelected] = useState<number[]>([])
-    const [data, setData] = useState<itemType[]>([] as itemType[]);
-    // const [activeId, setActiveId] = useState<number | null>(null);
-    // withou sensors, we cannot invoke our custom events on single items
+    const [data, setData] = useState<itemType[]>(images);
+
+    // Enable event listeners for the mouse sensor
     const mouseSensor = useSensor(MouseSensor, {
         activationConstraint: {
             distance: 10, // Enable sort function when dragging 10px   💡 here!!!
@@ -25,21 +24,20 @@ const Gallery = () => {
     })
     const sensors = useSensors(mouseSensor);
 
-    // Simulate data fetching from the server
-    const fetchData = async () => {
-        const res = await fetch('data.json');
-        const data = await res.json();
-        setData(data)
-    }
-
-    useEffect(() => {
-        fetchData();
-    }, []);
-
     const handleSelection = (id: number) => {
         // insert new id if it is not already exist in the array
         setSelected(prev => prev.includes(id) ? selected.filter(item => item !== id) : [...prev, id])
     }
+
+    // const selectAll = () => {
+    //     setSelected(data.map(item => item.id))
+    // }
+
+    const handleDelete = () => {
+        setData(prev => prev.filter(item => !selected.includes(item.id)))
+        setSelected([])
+    }
+
     const handleDragEnd = ({ active, over }: DragMoveEvent) => {
         if (active.id !== over?.id) {
             setData(items => {
@@ -48,7 +46,6 @@ const Gallery = () => {
                 return arrayMove(items, oldIndex, newIndex);
             })
         }
-        // setActiveId(null);
     }
 
     return (
@@ -56,32 +53,20 @@ const Gallery = () => {
             sensors={sensors}
             collisionDetection={closestCenter}
             onDragEnd={handleDragEnd}
-        // onDragStart={(e: DragMoveEvent) => { setActiveId(Number(e.active.id)) }}
-        // onDragCancel={() => { setActiveId(null) }}
-
         >
             <SortableContext items={data} strategy={rectSwappingStrategy} >
                 <div className={styles.wrapper}>
-                    <Bar selected={selected} />
+                    <Header selected={selected} handleDelete={handleDelete} />
                     {/* main container */}
                     <div className={styles.container}>
-                        {data.map(item => (
-                            <GridItem key={item.id} item={item} handleSelection={handleSelection} />
-                        ))}
-
-                        {/* ADD IMAGE BLOCK */}
-                        <div className={styles.addItem}>
-                            <img src="/icons/thumbnail.svg" alt="image thumbnail" />
-                            <p>Add Images</p>
-                        </div>
+                        {data.length > 0 ?
+                            data.map(item => <GridItem key={item.id} item={item} handleSelection={handleSelection} />)
+                            : <Empty />
+                        }
+                        <AddItem />
                     </div>
                 </div>
             </SortableContext>
-            {/* <DragOverlay>
-                {activeId ?
-                    <GridItem item={data[activeId]} handleSelection={handleSelection} />
-                    : null}
-            </DragOverlay> */}
         </DndContext>
     )
 }
