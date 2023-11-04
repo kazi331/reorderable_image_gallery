@@ -14,7 +14,7 @@ import GridItem from './GridItem';
 export type itemType = { id: number, image: string }
 
 const Gallery = () => {
-    const [selected] = useState<itemType[]>([])
+    const [selected, setSelected] = useState<number[]>([])
     const [data, setData] = useState<itemType[]>([] as itemType[]);
 
     // Simulate data fetching from the server
@@ -27,7 +27,10 @@ const Gallery = () => {
     useEffect(() => {
         fetchData();
     }, []);
-
+    const handleSelection = (id: number) => {
+        // insert new id if it is not already exist
+        setSelected(prev => prev.includes(id) ? selected.filter(item => item !== id) : [...prev, id])
+    }
     const handleDragEnd = ({ active, over }: DragMoveEvent) => {
         if (active.id !== over?.id) {
             setData(items => {
@@ -52,7 +55,7 @@ const Gallery = () => {
 
                     {/* main container */}
                     <div className={styles.container}>
-                        {data.map(item => <GridItem key={item.id} item={item} />)}
+                        {data.map(item => <GridItem key={item.id} item={item} handleSelection={handleSelection} />)}
 
                         {/* ADD IMAGE BLOCK */}
                         <div className={styles.addItem}>

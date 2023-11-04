@@ -1,7 +1,6 @@
 import styles from '../styles/gallery.module.css';
-import { itemType } from './Gallery';
 
-const Bar = ({ selected }: { selected: itemType[] }) => {
+const Bar = ({ selected }: { selected: number[] }) => {
     return (
         <div className={styles.bar}>
             {
