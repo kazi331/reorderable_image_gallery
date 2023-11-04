@@ -10,13 +10,31 @@ const GridItem = ({ item }: { item: itemType }) => {
         transform: CSS.Transform.toString(transform),
         transition
     }
+
+
     return (
-        <div {...attributes} {...listeners} ref={setNodeRef} style={style} className={styles.itemWrapper}>
-            <div className={styles.item}>
+        <div {...attributes}
+            {...listeners}
+            ref={setNodeRef}
+            style={style}
+            className={styles.itemWrapper}
+            draggable={true}
+            onDragStart={(e) => {
+                const target = e.target as HTMLDivElement;
+                target.style.zIndex = "100";
+                const dragging = document.querySelector('.dragging') as HTMLDivElement;
+                if (dragging) {
+                    dragging.classList.remove('dragging')
+                    dragging.style.zIndex = "";
+                }
+                target.classList.add('dragging');
+            }}
+        >
+            <div className={styles.item} >
                 <img src={item.image} alt="Image title goes here..." />
             </div>
-            <input type="checkbox" id={item.id.toString()} />
-            <label htmlFor={item.id.toString()} ></label>
+            <input type="checkbox" id={item.id.toString()} onChange={() => console.log('checked')} />
+            <label htmlFor={item.id.toString()} onClick={() => console.log('clicked label')} />
         </div>
     )
 }
