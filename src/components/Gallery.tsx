@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
-import { DndContext, DragMoveEvent, closestCenter } from '@dnd-kit/core';
+import { DndContext, DragMoveEvent, DragOverlay, closestCenter } from '@dnd-kit/core';
 import { SortableContext, arrayMove, rectSwappingStrategy } from '@dnd-kit/sortable';
 import { useEffect, useState } from 'react';
 import styles from '../styles/gallery.module.css';
@@ -16,7 +16,7 @@ export type itemType = { id: number, image: string }
 const Gallery = () => {
     const [selected, setSelected] = useState<number[]>([])
     const [data, setData] = useState<itemType[]>([] as itemType[]);
-
+    const [activeId, setActiveId] = useState<number | null>(null);
     // Simulate data fetching from the server
     const fetchData = async () => {
         const res = await fetch('data.json');
@@ -45,7 +45,7 @@ const Gallery = () => {
         <DndContext
             collisionDetection={closestCenter}
             onDragEnd={handleDragEnd}
-        // onDragStart={handleDragStart}
+            onDragStart={(e: DragMoveEvent) => { setActiveId(Number(e.active.id)) }}
 
         >
             <SortableContext items={data} strategy={rectSwappingStrategy} >
@@ -66,11 +66,11 @@ const Gallery = () => {
 
                 </div>
             </SortableContext>
-            {/* <DragOverlay>
+            <DragOverlay>
                 {activeId ?
-                    <GridItem item={data[activeId - 1]} />
+                    <GridItem item={data[activeId - 1]} handleSelection={handleSelection} />
                     : null}
-            </DragOverlay> */}
+            </DragOverlay>
         </DndContext>
     )
 }
