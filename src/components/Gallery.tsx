@@ -32,15 +32,15 @@ const Gallery = () => {
 
     const handleDelete = () => {
         setData(prev => prev.filter(item => !selected.includes(item.id)))
-        toast.success(`${selected.length} ${selected.length > 1 ? "items" : "item"} deleted successfully`, {
+        toast.success(`${selected.length === data.length ? 'All' : selected.length} ${selected.length > 1 ? "items" : "item"} deleted successfully`, {
             dismissible: true,
-            action: {
+            action: selected.length === data.length ? {
                 label: 'Reload Page',
                 onClick: () => {
                     window.location.reload()
                     setSelected([])
                 },
-            }
+            } : undefined
         })
         setSelected([])
     }
