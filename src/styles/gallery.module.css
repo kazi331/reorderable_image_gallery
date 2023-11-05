@@ -114,46 +114,26 @@
   left: 0;
   width: 100%;
   height: 100%;
-  /* background: rgba(0, 0, 0, 0.2); */
-
-  z-index: -1;
-  /* cursor: grab; */
+  cursor: grab;
+  transition: all ease 0.2s;
 }
 
 .itemWrapper input {
   position: absolute;
-  width: 20px;
-  height: 20px;
-  top: 15px;
-  left: 15px;
-  z-index: -1;
+  width: 0;
+  height: 0;
+  visibility: hidden;
 }
 .itemWrapper:hover label {
-  z-index: 1;
   background: radial-gradient(
     rgba(0, 0, 0, 0.1),
     rgba(0, 0, 0, 0.2),
     rgba(0, 0, 0, 0.3)
   );
 }
-.itemWrapper:hover input {
-  z-index: 2;
-}
+
 .itemWrapper input:checked + label {
-  z-index: 1;
-  background: linear-gradient(
-    48deg,
-    rgba(255, 0, 222, 0.1) 0%,
-    rgba(255, 0, 222, 0.1) 80%,
-    rgba(255, 0, 0, 0.2) 80%,
-    rgba(255, 0, 0, 0.2) 90%,
-    rgba(255, 0, 222, 0.1) 90%,
-    rgba(255, 0, 222, 0.1) 100%
-  );
-  box-shadow: 2px 3px 11px rgba(255, 0, 0, 0.167) inset;
-}
-.itemWrapper input:checked {
-  z-index: 2;
+  background-color: rgba(5, 0, 0, 0.2);
 }
 
 /* ADD IMAGE ITEM */
@@ -210,4 +190,41 @@
     grid-auto-columns: 10rem;
     justify-content: center;
   }
+}
+
+/* CUSTOM CHECKMARK  */
+.check {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+.checkbg {
+  position: relative;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background-color: #fff;
+}
+.checkmark {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  color: rgba(247, 0, 0, 0.73);
+  scale: 0;
+  transition: all ease 0.2s;
+}
+.itemWrapper input:checked + label .checkmark {
+  scale: 1;
+}
+.itemWrapper input:checked + label .checkbg {
+  scale: 1;
+  border-color: transparent;
+}
+.itemWrapper input:checked + label {
+  scale: 0.9;
+  border-radius: 5px;
+  /* box-shadow: 0px 0px 8px rgb(224, 224, 224), 0px 0px 1px rgb(240, 240, 240); */
 }
