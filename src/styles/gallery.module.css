@@ -1,14 +1,14 @@
+/* MAIN WRAPPER */
 .wrapper {
   padding: 20px;
   width: 80vw;
   min-width: 100%;
-  /* margin: 20px; */
   box-shadow: 0px 0px 13px rgb(233, 233, 233);
   background-color: white;
   border-radius: 10px;
 }
 
-/* Bar  */
+/* HEADER   */
 .bar {
   margin-bottom: 20px;
   height: 3rem;
@@ -53,7 +53,6 @@
 .bar_selected input {
   width: 20px;
   height: 20px;
-  /* visibility: hidden; */
 }
 
 .bar_container button {
@@ -72,7 +71,7 @@
   transform: scale(0.95);
 }
 
-/* Grid container  */
+/* GRID CONTAINER  */
 .container {
   /* gridbox to maintain layout */
   display: grid;
@@ -83,7 +82,7 @@
   grid-auto-columns: 12rem;
 }
 
-/* make first/featured item 2x larger */
+/* make first/featured item 2x larger * MARK AS FEATURED IMAGE */
 .itemWrapper:first-child {
   grid-area: 1 / 1 / 3 / 3;
 }
@@ -139,7 +138,7 @@
   background-color: rgba(5, 0, 0, 0.2);
 }
 
-/* ADD IMAGE ITEM */
+/* ADD IMAGE ITEM BLOCK */
 .addItem {
   border: 1px dashed darkgray;
   border-style: ridge;
@@ -160,7 +159,7 @@
 .addItem p {
   user-select: none;
 }
-
+/* EMPTY BLOCK */
 .empty {
   display: flex;
   flex-direction: column;
@@ -177,22 +176,6 @@
 .empty span {
   font-size: 0.9rem;
   font-weight: 500;
-}
-
-/* RESPONSIVE DESIGN */
-
-@media screen and (max-width: 900px) {
-  .wrapper {
-    padding: 10px;
-    width: 95vw;
-  }
-  .container {
-    grid-template-rows: repeat(3, 10rem);
-    grid-template-columns: repeat(auto-fit, minmax(10rem, 10rem));
-    grid-auto-rows: 10rem;
-    grid-auto-columns: 10rem;
-    justify-content: center;
-  }
 }
 
 /* CUSTOM CHECKMARK  */
@@ -241,4 +224,20 @@
   scale: 0.9;
   border-radius: 10px;
   /* box-shadow: 0px 0px 8px rgb(224, 224, 224), 0px 0px 1px rgb(240, 240, 240); */
+}
+
+/* RESPONSIVE DESIGN */
+
+@media screen and (max-width: 900px) {
+  .wrapper {
+    padding: 10px;
+    width: 95vw;
+  }
+  .container {
+    grid-template-rows: repeat(3, 10rem);
+    grid-template-columns: repeat(auto-fit, minmax(10rem, 10rem));
+    grid-auto-rows: 10rem;
+    grid-auto-columns: 10rem;
+    justify-content: center;
+  }
 }

@@ -8,21 +8,12 @@ This is a simple image gallery that allows you to drag and re-order images. It i
 - Used [dnd-kit](https://docs.dndkit.com/) to create the drag and drop functionality
 - Avoided using ui library for this tiny project,
 
-### Installation
+### Local Installation
 
 - Clone the repo
 - cd into the repo
 - Run `pnpm i` to install dependencies
 - Run `pnpm dev` to start the app
-
-Or,
-
-```.js
-git clone https://github.com/kazi331/reorderable_image_gallery.git
-cd sortable_image_gallery
-pnpm i
-pnpm dev
-```
 
 ### Functionality
 
