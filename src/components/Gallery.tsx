@@ -71,9 +71,13 @@ const Gallery = () => {
                 <div className={styles.wrapper}>
                     {/* main container */}
                     <div className={styles.container}>
-                        {data.length > 0 ?
-                            data.map(item => <GridItem key={item.id} item={item} handleSelection={handleSelection} selected={selected} />)
-                            : <Empty />
+                        {
+                            data.length > 0 ?
+                                data.map(item => <GridItem key={item.id}
+                                    item={item}
+                                    handleSelection={handleSelection}
+                                    selected={selected} />
+                                ) : <Empty />
                         }
                         <AddItem />
                     </div>

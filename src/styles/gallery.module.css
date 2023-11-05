@@ -48,11 +48,14 @@
   display: flex;
   align-items: center;
   gap: 10px;
+  position: relative;
 }
 .bar_selected input {
   width: 20px;
   height: 20px;
+  /* visibility: hidden; */
 }
+
 .bar_container button {
   padding: 8px 16px;
   color: rgb(219, 43, 43);
@@ -208,6 +211,8 @@
   border: 2px solid transparent;
   border-radius: 50%;
   background-color: #fff;
+  opacity: 0;
+  cursor: pointer;
 }
 .checkmark {
   width: 100%;
@@ -217,8 +222,15 @@
   scale: 0.5;
   transition: all ease 0.2s;
 }
+.itemWrapper label:hover .checkbg {
+  opacity: 1;
+}
+.itemWrapper input:checked + label .checkbg {
+  opacity: 1;
+}
 .itemWrapper input:checked + label .checkmark {
   scale: 1;
+  opacity: 1;
   color: rgba(247, 0, 0, 0.73);
 }
 .itemWrapper input:checked + label .checkbg {
