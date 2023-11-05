@@ -3,9 +3,14 @@ import { CSS } from '@dnd-kit/utilities';
 import styles from '../styles/gallery.module.css';
 import { itemType } from '../utils/types';
 
+type propsType = {
+    item: itemType,
+    handleSelection: (id: number) => void,
+    selected: number[]
+}
 
 
-const GridItem = ({ item, handleSelection }: { item: itemType, handleSelection: (id: number) => void }) => {
+const GridItem = ({ item, handleSelection, selected }: propsType) => {
     const { attributes, listeners, setNodeRef, transform, transition, active } = useSortable({ id: item.id })
     const style = {
         transform: CSS.Transform.toString(transform),
@@ -28,7 +33,7 @@ const GridItem = ({ item, handleSelection }: { item: itemType, handleSelection: 
             <div className={styles.item} >
                 <img src={item.image} alt="Image title goes here..." />
             </div>
-            <input type="checkbox" id={item.id.toString()} onChange={() => handleSelection(item.id)} />
+            <input type="checkbox" checked={selected.includes(item.id)} id={item.id.toString()} onChange={() => handleSelection(item.id)} />
             <label style={labelStyle} htmlFor={item.id.toString()} />
         </div>
     )

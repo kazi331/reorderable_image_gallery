@@ -48,6 +48,11 @@ const Gallery = () => {
         }
     }
 
+    //  SELECT ALL
+    const selectAll = () => {
+        if (selected.length === data.length) return setSelected([])
+        setSelected(data.map(item => item.id))
+    }
     return (
         <DndContext
             sensors={sensors}
@@ -55,12 +60,12 @@ const Gallery = () => {
             onDragEnd={handleDragEnd}
         >
             <SortableContext items={data} strategy={rectSwappingStrategy} >
+                <Header selected={selected} selectAll={selectAll} handleDelete={handleDelete} checked={selected.length === data.length} />
                 <div className={styles.wrapper}>
-                    <Header selected={selected} handleDelete={handleDelete} />
                     {/* main container */}
                     <div className={styles.container}>
                         {data.length > 0 ?
-                            data.map(item => <GridItem key={item.id} item={item} handleSelection={handleSelection} />)
+                            data.map(item => <GridItem key={item.id} item={item} handleSelection={handleSelection} selected={selected} />)
                             : <Empty />
                         }
                         <AddItem />

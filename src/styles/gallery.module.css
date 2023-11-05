@@ -1,7 +1,7 @@
 .wrapper {
   padding: 20px;
   width: 80vw;
-  margin: 20px;
+  /* margin: 20px; */
   box-shadow: 0px 0px 13px rgb(233, 233, 233);
   background-color: white;
   border-radius: 10px;
@@ -10,13 +10,38 @@
 /* Bar  */
 .bar {
   margin-bottom: 20px;
+  height: 3rem;
+  display: flex;
+  justify-content: center;
+  border-radius: 5px;
   padding: 0 10px;
-  height: 2rem;
+  box-shadow: 0px 0px 5px rgb(224, 224, 224);
+  position: sticky;
+  top: 10px;
+  z-index: 3;
+  background-color: white;
+  overflow: hidden;
+}
+.flex {
+  transition: transform 0.2s ease-in-out;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  gap: 20px;
+  flex-direction: column;
 }
 .bar_container {
   display: flex;
   align-items: center;
+  width: 100%;
   justify-content: space-between;
+}
+.title {
+  /* width: 100%; */
+  color: rgb(48, 48, 48);
+  font-size: 1.2rem;
+  padding: auto 10px;
+  /* transform: translateY(3rem); */
 }
 .bar_selected {
   display: flex;
@@ -34,12 +59,13 @@
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  transition: all 0.2s ease-in-out;
 }
 .bar_container button:hover {
   background-color: rgba(255, 0, 0, 0.315);
 }
-.title {
-  color: rgb(48, 48, 48);
+.bar_container button:active {
+  transform: scale(0.95);
 }
 
 /* Grid container  */
@@ -62,7 +88,6 @@
 /* ITEM WRAPPER  */
 .itemWrapper {
   position: relative;
-  /* border: 1px solid rgb(236, 236, 236); */
   box-shadow: 0px 0px 8px rgb(224, 224, 224), 0px 0px 1px rgb(240, 240, 240);
   border-radius: 10px;
   overflow: hidden;
@@ -90,11 +115,7 @@
   width: 100%;
   height: 100%;
   /* background: rgba(0, 0, 0, 0.2); */
-  background: radial-gradient(
-    rgba(0, 0, 0, 0.1),
-    rgba(0, 0, 0, 0.2),
-    rgba(0, 0, 0, 0.3)
-  );
+
   z-index: -1;
   /* cursor: grab; */
 }
@@ -109,6 +130,11 @@
 }
 .itemWrapper:hover label {
   z-index: 1;
+  background: radial-gradient(
+    rgba(0, 0, 0, 0.1),
+    rgba(0, 0, 0, 0.2),
+    rgba(0, 0, 0, 0.3)
+  );
 }
 .itemWrapper:hover input {
   z-index: 2;
@@ -116,11 +142,15 @@
 .itemWrapper input:checked + label {
   z-index: 1;
   background: linear-gradient(
-    rgba(255, 0, 0, 0.164),
-    rgba(255, 0, 0, 0.052),
-    rgba(255, 0, 0, 0.1)
+    48deg,
+    rgba(255, 0, 222, 0.1) 0%,
+    rgba(255, 0, 222, 0.1) 80%,
+    rgba(255, 0, 0, 0.2) 80%,
+    rgba(255, 0, 0, 0.2) 90%,
+    rgba(255, 0, 222, 0.1) 90%,
+    rgba(255, 0, 222, 0.1) 100%
   );
-  /* box-shadow: 2px 3px 11px rgba(255, 0, 0, 0.167) inset; */
+  box-shadow: 2px 3px 11px rgba(255, 0, 0, 0.167) inset;
 }
 .itemWrapper input:checked {
   z-index: 2;
@@ -129,6 +159,7 @@
 /* ADD IMAGE ITEM */
 .addItem {
   border: 1px dashed darkgray;
+  border-style: ridge;
   border-radius: 5px;
   display: flex;
   flex-direction: column;
@@ -143,6 +174,9 @@
   height: 30px;
   opacity: 0.5;
 }
+.addItem p {
+  user-select: none;
+}
 
 .empty {
   display: flex;
@@ -151,7 +185,6 @@
   justify-content: center;
   gap: 10px;
   color: rgb(102, 100, 100);
-  cursor: pointer;
 }
 .empty img {
   width: 50%;
