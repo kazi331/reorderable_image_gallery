@@ -1,6 +1,7 @@
 .wrapper {
   padding: 20px;
   width: 80vw;
+  min-width: 100%;
   /* margin: 20px; */
   box-shadow: 0px 0px 13px rgb(233, 233, 233);
   background-color: white;
@@ -75,7 +76,6 @@
   grid-template-rows: repeat(3, 12rem);
   grid-template-columns: repeat(auto-fit, minmax(12rem, 12rem));
   gap: 20px;
-
   grid-auto-rows: 12rem;
   grid-auto-columns: 12rem;
 }
@@ -194,4 +194,20 @@
 .empty span {
   font-size: 0.9rem;
   font-weight: 500;
+}
+
+/* RESPONSIVE DESIGN */
+
+@media screen and (max-width: 900px) {
+  .wrapper {
+    padding: 10px;
+    width: 95vw;
+  }
+  .container {
+    grid-template-rows: repeat(3, 10rem);
+    grid-template-columns: repeat(auto-fit, minmax(10rem, 10rem));
+    grid-auto-rows: 10rem;
+    grid-auto-columns: 10rem;
+    justify-content: center;
+  }
 }
