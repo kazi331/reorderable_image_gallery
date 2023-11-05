@@ -24,12 +24,12 @@ const Gallery = () => {
         },
     })
     const sensors = useSensors(mouseSensor);
-
+    // HANDLE SELECTION
     const handleSelection = (id: number) => {
         // insert new id if it is not already exist in the array
         setSelected(prev => prev.includes(id) ? selected.filter(item => item !== id) : [...prev, id])
     }
-
+    // HANDLE DELETE ACTION
     const handleDelete = () => {
         setData(prev => prev.filter(item => !selected.includes(item.id)))
         toast.success(`${selected.length === data.length ? 'All' : selected.length} ${selected.length > 1 ? "items" : "item"} deleted successfully`, {
@@ -44,7 +44,7 @@ const Gallery = () => {
         })
         setSelected([])
     }
-
+    // HANDLE DRAG END
     const handleDragEnd = ({ active, over }: DragMoveEvent) => {
         if (active.id !== over?.id) {
             setData(items => {
@@ -60,6 +60,8 @@ const Gallery = () => {
         if (selected.length === data.length) return setSelected([])
         setSelected(data.map(item => item.id))
     }
+
+
     return (
         <DndContext
             sensors={sensors}
@@ -71,9 +73,15 @@ const Gallery = () => {
                 <div className={styles.wrapper}>
                     {/* main container */}
                     <div className={styles.container}>
-                        {data.length > 0 ?
-                            data.map(item => <GridItem key={item.id} item={item} handleSelection={handleSelection} selected={selected} />)
-                            : <Empty />
+                        {
+                            data.length > 0 ?
+                                data.map(item => (
+                                    <GridItem
+                                        key={item.id}
+                                        item={item}
+                                        handleSelection={handleSelection}
+                                        selected={selected} />
+                                )) : <Empty />
                         }
                         <AddItem />
                     </div>
