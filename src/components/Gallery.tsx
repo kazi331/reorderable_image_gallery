@@ -4,6 +4,7 @@ import { useState } from 'react';
 import styles from '../styles/gallery.module.css';
 import GridItem from './GridItem';
 
+import { toast } from 'sonner';
 import images from '../data/data.json';
 import { itemType } from '../utils/types';
 import AddItem from './AddItem';
@@ -29,12 +30,18 @@ const Gallery = () => {
         setSelected(prev => prev.includes(id) ? selected.filter(item => item !== id) : [...prev, id])
     }
 
-    // const selectAll = () => {
-    //     setSelected(data.map(item => item.id))
-    // }
-
     const handleDelete = () => {
         setData(prev => prev.filter(item => !selected.includes(item.id)))
+        toast.success(`${selected.length} ${selected.length > 1 ? "items" : "item"} deleted successfully`, {
+            dismissible: true,
+            action: {
+                label: 'Reload Page',
+                onClick: () => {
+                    window.location.reload()
+                    setSelected([])
+                },
+            }
+        })
         setSelected([])
     }
 
