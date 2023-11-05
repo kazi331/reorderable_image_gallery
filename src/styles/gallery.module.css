@@ -213,12 +213,13 @@
   width: 100%;
   height: 100%;
   border-radius: 50%;
-  color: rgba(247, 0, 0, 0.73);
-  scale: 0;
+  color: gray;
+  scale: 0.5;
   transition: all ease 0.2s;
 }
 .itemWrapper input:checked + label .checkmark {
   scale: 1;
+  color: rgba(247, 0, 0, 0.73);
 }
 .itemWrapper input:checked + label .checkbg {
   scale: 1;
