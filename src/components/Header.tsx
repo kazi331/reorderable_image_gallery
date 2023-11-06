@@ -31,9 +31,15 @@ const Header = ({ selected, handleDelete, selectAll, checked, setSelected }: pro
         })
     }
 
+    const style = {
+        "-webkit-transform": selected.length > 0 ? 'translateY(0.5rem)' : 'translateY(-2.8rem)',
+        "-ms-transform": selected.length > 0 ? 'translateY(0.5rem)' : 'translateY(-2.8rem)',
+        "transform": selected.length > 0 ? 'translateY(0.5rem)' : 'translateY(-2.8rem)'
+    }
+
     return (
         <div className={styles.bar}>
-            <div className={styles.flex} style={{ transform: `${selected.length > 0 ? 'translateY(0.5rem)' : 'translateY(-2.65rem)'}` }}>
+            <div className={styles.flex} style={style}>
                 <div className={styles.bar_container}>
                     <div className={styles.bar_selected}>
                         <input id="check" type="checkbox" onChange={selectAll} checked={checked} />
@@ -41,10 +47,10 @@ const Header = ({ selected, handleDelete, selectAll, checked, setSelected }: pro
                     </div>
                     <button disabled={selected.length < 1} onClick={confirm}  >Delete Selected</button>
                 </div>
-                <h4 className={styles.title}>
+                <div className={styles.title}>
                     <p>Gallery</p>
                     <button onClick={selectAll} >Select All</button>
-                </h4>
+                </div>
             </div>
         </div>
     )
