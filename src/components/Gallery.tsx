@@ -32,10 +32,14 @@ const Gallery = () => {
 
     //     SENSORS TO HANDLE DRAG AND DROP
     const sensors = useSensors(
-        useSensor(MouseSensor),
+        useSensor(MouseSensor, {
+            activationConstraint: {
+                distance: 10,
+            }
+        }),
         useSensor(TouchSensor, {
             activationConstraint: {
-                delay: 250,
+                delay: 150,
                 tolerance: 5,
             },
         }),
