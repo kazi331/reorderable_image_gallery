@@ -1,5 +1,18 @@
-import { DndContext, DragMoveEvent, MouseSensor, closestCenter, useSensor, useSensors } from '@dnd-kit/core';
-import { SortableContext, arrayMove, rectSwappingStrategy } from '@dnd-kit/sortable';
+import {
+    DndContext,
+    DragMoveEvent,
+    KeyboardSensor,
+    MouseSensor,
+    TouchSensor,
+    closestCenter,
+    useSensor,
+    useSensors
+} from '@dnd-kit/core';
+import {
+    SortableContext,
+    arrayMove,
+    rectSortingStrategy
+} from '@dnd-kit/sortable';
 import { useState } from 'react';
 import styles from '../styles/gallery.module.css';
 import GridItem from './GridItem';
@@ -17,13 +30,17 @@ const Gallery = () => {
     const [selected, setSelected] = useState<number[]>([])
     const [data, setData] = useState<itemType[]>(images);
 
-    // Enable event listeners for the mouse sensor
-    const mouseSensor = useSensor(MouseSensor, {
-        activationConstraint: {
-            distance: 10, // Enable sort function when dragging 10px   💡 here!!!
-        },
-    })
-    const sensors = useSensors(mouseSensor);
+    //     SENSORS TO HANDLE DRAG AND DROP
+    const sensors = useSensors(
+        useSensor(MouseSensor),
+        useSensor(TouchSensor, {
+            activationConstraint: {
+                delay: 250,
+                tolerance: 5,
+            },
+        }),
+        useSensor(KeyboardSensor),
+    );
     // HANDLE SELECTION
     const handleSelection = (id: number) => {
         // insert new id if it is not already exist in the array
@@ -32,6 +49,7 @@ const Gallery = () => {
     // HANDLE DELETE ACTION
     const handleDelete = () => {
         setData(prev => prev.filter(item => !selected.includes(item.id)))
+        // OPTIONAL TOAST MESSAGE
         toast.success(`${selected.length === data.length ? 'All' : selected.length} ${selected.length > 1 ? "items" : "item"} deleted successfully`, {
             dismissible: true,
             action: selected.length === data.length ? {
@@ -68,8 +86,13 @@ const Gallery = () => {
             collisionDetection={closestCenter}
             onDragEnd={handleDragEnd}
         >
-            <SortableContext items={data} strategy={rectSwappingStrategy} >
-                <Header selected={selected} selectAll={selectAll} handleDelete={handleDelete} checked={selected.length === data.length} />
+            <SortableContext items={data} strategy={rectSortingStrategy} >
+                <Header
+                    selected={selected}
+                    selectAll={selectAll}
+                    handleDelete={handleDelete}
+                    checked={selected.length === data.length}
+                />
                 <div className={styles.wrapper}>
                     {/* main container */}
                     <div className={styles.container}>

@@ -18,6 +18,7 @@ This is a simple image gallery that allows you to drag and re-order images. It i
 ### Functionality
 
 - Drag and drop images to re-order them
+- **Drag and drop in Touch Screen and with Keyboard supported**
 - Click on the image to select it
 - Select All items by clicking on the checkbox on header
 - Delete selected items by clicking on the delete button on header
