@@ -22,3 +22,25 @@ This is a simple image gallery that allows you to drag and re-order images. It i
 - Select All items by clicking on the checkbox on header
 - Delete selected items by clicking on the delete button on header
 - Delete single item by clicking on the delete button on the item
+
+## Screenshots
+
+<details open>
+<summary> <b> Desktop Screenshots </b></summary>
+
+![Desktop 1](public/screenshots/desktop1.png)
+![Desktop 2](public/screenshots/desktop2.png)
+![Desktop 3](public/screenshots/desktop3.png)
+
+</details>
+
+<details open>
+
+<summary> <b> Mobile Screenshots </b> </summary>
+
+![Mobile 1](public/screenshots/mobile1.png)
+![Mobile 2](public/screenshots/mobile2.png)
+![Mobile 3](public/screenshots/mobile3.png)
+![Mobile 4](public/screenshots/mobile4.png)
+
+</details>
