@@ -66,6 +66,7 @@
   -webkit-box-pack: justify;
   -ms-flex-pack: justify;
   justify-content: space-between;
+  margin-top: -2px;
 }
 .title {
   color: rgb(48, 48, 48);
@@ -79,6 +80,7 @@
   -webkit-box-pack: justify;
   -ms-flex-pack: justify;
   justify-content: space-between;
+  margin-top: -6px;
 }
 
 .bar_selected {
@@ -92,6 +94,7 @@
   position: relative;
   color: #333;
   font-size: 14px;
+  
 }
 .bar_selected input {
   width: 20px;
@@ -109,7 +112,7 @@
   -webkit-transition: all 0.2s ease-in-out;
   -o-transition: all 0.2s ease-in-out;
   transition: all 0.2s ease-in-out;
-}
+  }
 .bar_container button:hover {
   background-color: rgba(255, 0, 0, 0.315);
 }
